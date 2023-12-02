@@ -1,0 +1,57 @@
+{
+  "name": "cars-shop",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cars-shop/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/cars-shop",
+        "main": "apps/cars-shop/src/main.ts",
+        "tsConfig": "apps/cars-shop/tsconfig.app.json",
+        "assets": ["apps/cars-shop/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/cars-shop/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "cars-shop:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "cars-shop:build:development"
+        },
+        "production": {
+          "buildTarget": "cars-shop:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/cars-shop/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/cars-shop/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
