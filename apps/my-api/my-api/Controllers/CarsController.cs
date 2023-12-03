@@ -4,26 +4,26 @@ using MyApi.Models.Context;
 
 namespace KiloNx.Apps.MyApi.MyApi.Controllers;
 
-public class TodoItemsController(MyApiContext context) : ControllerBase
+public class CarsController(MyApiContext context) : ControllerBase
 {
-  [HttpPost("/")]
+  [Microsoft.AspNetCore.Mvc.HttpPost("cars/")]
   [ProducesResponseType(StatusCodes.Status201Created)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
-  public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
+  public async Task<ActionResult<Car>> PostCar(Car car)
   {
-    context.TodoItems.Add(todoItem);
+    context.Car.Add(car);
     await context.SaveChangesAsync();
 
     //    return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-    return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
+    return CreatedAtAction(nameof(GetCar), new { id = car.Id }, car);
   }
 
-  [HttpGet("{id}")]
+  [HttpGet("cars/{id}")]
   [ProducesResponseType(StatusCodes.Status200OK)]
   [ProducesResponseType(StatusCodes.Status400BadRequest)]
-  public ActionResult<TodoItem> GetTodoItem(long id)
+  public ActionResult<Car> GetCar(long id)
   {
-    var todoItem = context.TodoItems.Find(id);
+    var todoItem = context.Car.Find(id);
 
     if (todoItem == null)
     {

@@ -11,4 +11,5 @@ public class MyApiContext : DbContext
     }
 
     public DbSet<TodoItem> TodoItems { get; set; } = null!;
+    public DbSet<Car> Car { get; set; } = null!;
 }
